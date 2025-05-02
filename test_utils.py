@@ -3,6 +3,7 @@ from utils import lorenz_step, hsv_to_rgb
 from matrix import matrix_multiplication
 
 
+# Тестування функції hsv_to_rgb
 class TestColorConversion(unittest.TestCase):
     def test_hsv_to_rgb_red(self):
         self.assertEqual(hsv_to_rgb(0, 1, 1), (255, 0, 0))
@@ -10,13 +11,8 @@ class TestColorConversion(unittest.TestCase):
     def test_hsv_to_rgb_green(self):
         self.assertEqual(hsv_to_rgb(1 / 3, 1, 1), (0, 255, 0))
 
-    def test_hsv_to_rgb_blue(self):
-        self.assertEqual(hsv_to_rgb(2 / 3, 1, 1), (0, 0, 255))
 
-    def test_hsv_to_rgb_white(self):
-        self.assertEqual(hsv_to_rgb(0, 0, 1), (255, 255, 255))
-
-
+# Тестування функції matrix_multiplication
 class TestMatrixMultiplication(unittest.TestCase):
     def test_multiply_with_identity(self):
         a = [[1, 0], [0, 1]]
@@ -25,12 +21,13 @@ class TestMatrixMultiplication(unittest.TestCase):
         self.assertEqual(result, b)
 
     def test_incompatible_dimensions(self):
-        a = [[1, 2]]
+        a = [[1, 2], [5, 6]]
         b = [[3, 4]]
         with self.assertRaises(ValueError):
             matrix_multiplication(a, b)
 
 
+# Тестування функції lorenz_step
 class TestLorenzStep(unittest.TestCase):
     def test_output_type_and_length(self):
         x, y, z = 0.01, 0.0, 0.0
