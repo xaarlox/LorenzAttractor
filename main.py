@@ -5,6 +5,7 @@ import math
 
 from matrix import matrix_multiplication
 
+# Параметри вікна
 os.environ["SDL_VIDEO_CENTERED"] = '1'
 width, height = 1280, 720
 screen = pygame.display.set_mode((width, height))
@@ -14,18 +15,23 @@ clock = pygame.time.Clock()
 fps = 60
 
 
+# Функція для конвертації кольору з HSV у RGB
 def hsv_to_rgb(h, s, v):
     return tuple(round(i * 255) for i in colorsys.hsv_to_rgb(h, s, v))
 
 
+# Початкові параметри атрактора Лоренца
 sigma = 10
 row = 28
 beta = 8 / 3
 x, y, z = 0.01, 0, 0
 points = []
+
+# Керування
 scale = 15
 angle_x, angle_y = 0, 0
 
+# Основний цикл
 run = True
 while run:
     screen.fill((0, 0, 0))
@@ -39,6 +45,7 @@ while run:
             if scale < 1:
                 scale = 1
 
+    # Обертання тільки при затисненій лівій лкм
     if pygame.mouse.get_pressed()[0]:
         dx, dy = pygame.mouse.get_rel()
         angle_y += dx * 0.005
@@ -46,6 +53,7 @@ while run:
     else:
         pygame.mouse.get_rel()
 
+    # Ротаційні матриці
     rotation_x = [[1, 0, 0],
                   [0, math.cos(angle_x), -math.sin(angle_x)],
                   [0, math.sin(angle_x), math.cos(angle_x)]]
@@ -54,20 +62,22 @@ while run:
                   [0, 1, 0],
                   [math.sin(angle_y), 0, math.cos(angle_y)]]
 
+    # Рівняння Лоренца
     dt = 0.009
     dx = (sigma * (y - x)) * dt
     dy = (x * (row - z) - y) * dt
     dz = (x * y - beta * z) * dt
-
     x += dx
     y += dy
     z += dz
 
+    # Додавання точки
     point = [[x], [y], [z]]
     points.append(point)
     if len(points) > 10000:
         points.pop(0)
 
+    # Малювання
     for i, p in enumerate(points):
         rotated = matrix_multiplication(rotation_x, p)
         rotated = matrix_multiplication(rotation_y, rotated)
