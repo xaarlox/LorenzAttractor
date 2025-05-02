@@ -12,7 +12,7 @@ def matrix_multiplication(a, b):
                 for k in range(columns_a):
                     sum += a[x][k] * b[k][y]
                 result_matrix[x][y] = sum
-            return result_matrix
-        else:
-            print("Error! The columns of the first matrix must be equal with the rows of the second one.")
-            return None
+        return result_matrix
+    else:
+        print("Error! The columns of the first matrix must be equal with the rows of the second one.")
+        return None
