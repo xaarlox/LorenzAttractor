@@ -22,7 +22,7 @@ def hsv_to_rgb(h, s, v):
 
 # Початкові параметри атрактора Лоренца
 sigma = 10
-row = 28
+rho = 28
 beta = 8 / 3
 x, y, z = 0.01, 0, 0
 points = []
@@ -65,7 +65,7 @@ while run:
     # Рівняння Лоренца
     dt = 0.009
     dx = (sigma * (y - x)) * dt
-    dy = (x * (row - z) - y) * dt
+    dy = (x * (rho - z) - y) * dt
     dz = (x * y - beta * z) * dt
     x += dx
     y += dy
